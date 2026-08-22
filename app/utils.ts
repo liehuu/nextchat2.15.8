@@ -261,6 +261,8 @@ export function isVisionModel(model: string) {
     "gemini-1.5-pro",
     "gemini-1.5-flash",
     "gemini-3", 
+    "gemini-4", 
+    "gemini-5", 
     "gpt-4o",
     "gpt-4o-mini",
   ];
