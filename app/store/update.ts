@@ -69,68 +69,8 @@ export const useUpdateStore = createPersistStore(
     },
 
     async getLatestVersion(force = false) {
-      const versionType = get().versionType;
-      let version =
-        versionType === "date"
-          ? getClientConfig()?.commitDate
-          : getClientConfig()?.version;
-
-      set(() => ({ version }));
-
-      const shouldCheck = Date.now() - get().lastUpdate > 2 * 60 * ONE_MINUTE;
-      if (!force && !shouldCheck) return;
-
-      set(() => ({
-        lastUpdate: Date.now(),
-      }));
-
-      try {
-        const remoteId = await getVersion(versionType);
-        set(() => ({
-          remoteVersion: remoteId,
-        }));
-        if (window.__TAURI__?.notification && isApp) {
-          // Check if notification permission is granted
-          await window.__TAURI__?.notification
-            .isPermissionGranted()
-            .then((granted) => {
-              if (!granted) {
-                return;
-              } else {
-                // Request permission to show notifications
-                window.__TAURI__?.notification
-                  .requestPermission()
-                  .then((permission) => {
-                    if (permission === "granted") {
-                      if (version === remoteId) {
-                        // Show a notification using Tauri
-                        window.__TAURI__?.notification.sendNotification({
-                          title: "NextChat",
-                          body: `${Locale.Settings.Update.IsLatest}`,
-                          icon: `${ChatGptIcon.src}`,
-                          sound: "Default",
-                        });
-                      } else {
-                        const updateMessage =
-                          Locale.Settings.Update.FoundUpdate(`${remoteId}`);
-                        // Show a notification for the new version using Tauri
-                        window.__TAURI__?.notification.sendNotification({
-                          title: "NextChat",
-                          body: updateMessage,
-                          icon: `${ChatGptIcon.src}`,
-                          sound: "Default",
-                        });
-                        clientUpdate();
-                      }
-                    }
-                  });
-              }
-            });
-        }
-        console.log("[Got Upstream] ", remoteId);
-      } catch (error) {
-        console.error("[Fetch Upstream Commit Id]", error);
-      }
+      // 已禁用版本更新检测，不请求远程版本接口
+      return;
     },
 
     async updateUsage(force = false) {
