@@ -409,6 +409,17 @@ const chatglmModels = [
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
 export const DEFAULT_MODELS = [
+    ...googleModels.map((name) => ({
+    name,
+    available: true,
+    sorted: seq++,
+    provider: {
+      id: "google",
+      providerName: "Google",
+      providerType: "google",
+      sorted: 3,
+    },
+  })),
   ...openaiModels.map((name) => ({
     name,
     available: true,
@@ -429,17 +440,6 @@ export const DEFAULT_MODELS = [
       providerName: "Azure",
       providerType: "azure",
       sorted: 2,
-    },
-  })),
-  ...googleModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "google",
-      providerName: "Google",
-      providerType: "google",
-      sorted: 3,
     },
   })),
   ...anthropicModels.map((name) => ({
