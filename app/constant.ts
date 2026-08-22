@@ -417,7 +417,7 @@ export const DEFAULT_MODELS = [
       id: "google",
       providerName: "Google",
       providerType: "google",
-      sorted: 3,
+      sorted: 1,
     },
   })),
   ...openaiModels.map((name) => ({
@@ -428,7 +428,7 @@ export const DEFAULT_MODELS = [
       id: "openai",
       providerName: "OpenAI",
       providerType: "openai",
-      sorted: 1, // 这里是固定的，确保顺序与之前内置的版本一致
+      sorted: 3, // 这里是固定的，确保顺序与之前内置的版本一致
     },
   })),
   ...openaiModels.map((name) => ({
