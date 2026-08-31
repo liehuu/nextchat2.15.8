@@ -57,7 +57,8 @@ pub async fn stream_fetch(
   let client = Client::builder()
     .default_headers(_headers)
     .redirect(reqwest::redirect::Policy::limited(3))
-    .connect_timeout(Duration::new(3, 0))
+    .connect_timeout(Duration::new(30, 0))
+    .timeout(Duration::from_secs(180)) 
     .build()
     .map_err(|err| format!("failed to generate client: {}", err))?;
 
